@@ -1,6 +1,5 @@
 'use strict';
 const events = require("../../modular/events");
-let flight={},details={};
 events.on('new-flight',handleNewFlight);
 
 function handleNewFlight(payload){
