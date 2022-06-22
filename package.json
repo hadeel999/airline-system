@@ -1,0 +1,28 @@
+{
+  "name": "airline-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "system.js",
+  "scripts": {
+    "test": "NODE_ENV=test jest --coverage --verbose",
+    "dev": "NODE_ENV=development nodemon system.js",
+    "start": "NODE_ENV=production node system.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "uuid": "^8.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hadeel999/airline-system.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hadeel999/airline-system/issues"
+  },
+  "homepage": "https://github.com/hadeel999/airline-system#readme",
+  "devDependencies": {
+    "@faker-js/faker": "^7.3.0"
+  }
+}
