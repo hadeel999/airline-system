@@ -1,7 +1,11 @@
 'use strict';
-const {systemConnection}=require("../modular/pilot/pilot");
-const {ioServer}=require("../modular/system/system");
+const PORT = process.env.PORT || 3000;
+const ioServer = require('socket.io')(PORT);
 const {faker}= require('@faker-js/faker');
+const io = require('socket.io-client');
+let host = `http://localhost:${process.env.PORT}/airline`;
+const systemConnection = io.connect(host);
+
 
 describe('Events Test', () => {
 
@@ -17,9 +21,10 @@ describe('Events Test', () => {
         }
     };
 
-    beforeEach(() => {
-        consoleSpy = jest.spyOn(console, 'log');
+    beforeAll(() => {
+        consoleSpy = jest.spyOn(console, 'log').mockImplementation();
     });
+
 
     it('new-flight event test',async()=>{
         ioServer.emit('new-flight',Flight);
@@ -38,5 +43,12 @@ describe('Events Test', () => {
         await consoleSpy();
         expect(consoleSpy).toHaveBeenCalled();
     })
+
+    afterAll(()=>{
+        consoleSpy.mockRestore();
+        systemConnection.close();
+        ioServer.close();
+    });
+
 
 })
