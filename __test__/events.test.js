@@ -1,6 +1,11 @@
 'use strict';
-const events = require('../modular/events')
+const PORT = process.env.PORT || 3000;
+const ioServer = require('socket.io')(PORT);
 const {faker}= require('@faker-js/faker');
+const io = require('socket.io-client');
+let host = `http://localhost:${process.env.PORT}/airline`;
+const systemConnection = io.connect(host);
+
 
 describe('Events Test', () => {
 
@@ -16,26 +21,34 @@ describe('Events Test', () => {
         }
     };
 
-    beforeEach(() => {
-        consoleSpy = jest.spyOn(console, 'log');
+    beforeAll(() => {
+        consoleSpy = jest.spyOn(console, 'log').mockImplementation();
     });
 
+
     it('new-flight event test',async()=>{
-        events.emit('new-flight',Flight);
+        ioServer.emit('new-flight',Flight);
         await consoleSpy();
         expect(consoleSpy).toHaveBeenCalled();
     })
 
-    it('took-off event test',async()=>{
-        events.emit('took-off',Flight);
+    it('new-flight and took-off events test',async()=>{
+        systemConnection.emit('took-off',Flight);
         await consoleSpy();
         expect(consoleSpy).toHaveBeenCalled();
     })
 
     it('arrived event test',async()=>{
-        events.emit('arrived',Flight);
+        ioServer.emit('arrived',Flight);
         await consoleSpy();
         expect(consoleSpy).toHaveBeenCalled();
     })
+
+    afterAll(()=>{
+        consoleSpy.mockRestore();
+        systemConnection.close();
+        ioServer.close();
+    });
+
 
 })
