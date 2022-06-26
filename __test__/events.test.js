@@ -1,5 +1,6 @@
 'use strict';
-const events = require('../modular/events')
+const {systemConnection}=require("../modular/pilot/pilot");
+const {ioServer}=require("../modular/system/system");
 const {faker}= require('@faker-js/faker');
 
 describe('Events Test', () => {
@@ -21,19 +22,19 @@ describe('Events Test', () => {
     });
 
     it('new-flight event test',async()=>{
-        events.emit('new-flight',Flight);
+        ioServer.emit('new-flight',Flight);
         await consoleSpy();
         expect(consoleSpy).toHaveBeenCalled();
     })
 
-    it('took-off event test',async()=>{
-        events.emit('took-off',Flight);
+    it('new-flight and took-off events test',async()=>{
+        systemConnection.emit('took-off',Flight);
         await consoleSpy();
         expect(consoleSpy).toHaveBeenCalled();
     })
 
     it('arrived event test',async()=>{
-        events.emit('arrived',Flight);
+        ioServer.emit('arrived',Flight);
         await consoleSpy();
         expect(consoleSpy).toHaveBeenCalled();
     })
