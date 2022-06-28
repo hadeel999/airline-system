@@ -27,8 +27,7 @@ function handleNewFlight2(payload){
         payload.Flight.event='arrived';
         console.log(`Pilot: flight with ID '${payload.Details.flightID}' has arrived`);
         systemConnection2.emit('arrived',payload); 
-        let flight=payload.Details;     
-        systemConnection2.emit('delete',flight);      
+        systemConnection2.emit('delete',payload.Details.flightID);      
 
     }, 7000);
 
@@ -39,7 +38,7 @@ systemConnection2.on('flight',handleFlight);
 
 function handleFlight(flight){
     console.log(`Pilot:Sorry i didn't catch this flight ID ${flight.id} `);
-    systemConnection2.emit('delete',flight);
+    systemConnection2.emit('delete',flight.id);
 }
 
 module.exports={systemConnection:systemConnection};

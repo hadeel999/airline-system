@@ -45,8 +45,9 @@ ioServer.on('connection', (socket) => {
             delete queue.flights[id];
         })
     })
-    socket.on('delete',(flight)=>{
-        delete queue.flights[flight.id];
+    socket.on('delete',(id)=>{
+        console.log("deleteing ",id)
+        delete queue.flights[id];
     })
 });
 
