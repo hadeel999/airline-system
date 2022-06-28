@@ -19,7 +19,7 @@ describe('Events Test', () => {
             pilot:`${faker.name.firstName()} ${faker.name.lastName()}`,
             destination:`${faker.address.city()}, ${faker.address.country()}`    
         }
-    };
+    }; 
 
     beforeAll(() => {
         consoleSpy = jest.spyOn(console, 'log').mockImplementation();
