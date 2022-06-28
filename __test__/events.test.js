@@ -6,7 +6,7 @@ const io = require('socket.io-client');
 let host = `http://localhost:${process.env.PORT}/airline`;
 const systemConnection = io.connect(host);
 
-
+ 
 describe('Events Test', () => {
 
     let consoleSpy;
